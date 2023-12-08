@@ -2,15 +2,14 @@
 #include <ctime>
 #include <string>
 #include <iostream>
-#include <string>
+#include <future>
+#include <vector>
+#include <chrono>
+
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 
-#include <future>
-#include <memory>
-#include <vector>
-#include <utility>
-#include <chrono>
+
 
 using namespace boost;
 using namespace boost::asio;
@@ -20,7 +19,7 @@ class Server
 {
 
 public:
-  Server(int socket_num) : acceptor(io_context, tcp::endpoint(tcp::v4(), socket_num))
+  Server(int socket_num, int threads_num) : threads_num(threads_num), acceptor(io_context, tcp::endpoint(tcp::v4(), socket_num))
   {
     for (int i = 0; i < threads_num; ++i)
     {
@@ -30,9 +29,8 @@ public:
 
   std::string make_daytime_string()
   {
-    using namespace std; // For time_t, time and ctime;
-    time_t now = time(0);
-    return ctime(&now);
+    time_t now = std::time(0);
+    return std::ctime(&now);
   }
 
   void Start()
@@ -84,6 +82,6 @@ private:
 
 int main()
 {
-  Server server(9000);
+  Server server(9000, 10);
   server.Start();
 }
