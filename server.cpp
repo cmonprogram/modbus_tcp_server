@@ -9,8 +9,6 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 
-
-
 using namespace boost;
 using namespace boost::asio;
 using boost::asio::ip::tcp;
@@ -68,7 +66,7 @@ public:
       std::string buff;
       auto bytes = read_until(socket, boost::asio::dynamic_buffer(buff), "\n");
       std::cout << buff.substr(0, bytes) << std::flush;
-      boost::asio::write(socket, boost::asio::buffer("Hello," + socket.remote_endpoint().address().to_string() + " now its: " + make_daytime_string()));
+      boost::asio::write(socket, boost::asio::buffer("Hello, " + socket.remote_endpoint().address().to_string() + " now its: " + make_daytime_string()));
     }
     return;
   }
@@ -80,8 +78,25 @@ private:
   std::vector<std::future<void>> threads;
 };
 
-int main()
+int main(int argc, char *argv[])
 {
-  Server server(9000, 10);
-  server.Start();
+  if (argc != 3)
+  {
+    std::cout << "Usage: ./best_tcp_server <port> <threads num>" << std::endl;
+  }
+  else
+  {
+    int port, num;
+    try
+    {
+      port = std::stoi(argv[1]);
+      num = std::stoi(argv[2]);
+    }
+    catch (...)
+    {
+      std::cout << "Usage: ./best_tcp_server <port> <threads num>" << std::endl;
+    }
+    Server server(port, num);
+    server.Start();
+  }
 }
