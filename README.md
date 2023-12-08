@@ -16,5 +16,5 @@ nc localhost 9000
 ```
 Fri Dec  8 05:16:08 2023
 >Hello
-Hello,127.0.0.1 now its: Fri Dec  8 05:16:12 2023
+Hello, 127.0.0.1 now its: Fri Dec  8 05:16:12 2023
 ```
