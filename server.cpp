@@ -91,13 +91,14 @@ int main(int argc, char *argv[])
     {
       port = std::stoi(argv[1]);
       num = std::stoi(argv[2]);
-
-      Server server(port, num);
-      server.Start();
     }
     catch (...)
     {
       std::cout << "Usage: ./best_tcp_server <port> <threads num>" << std::endl;
+      exit(1);
     }
+
+    Server server(port, num);
+    server.Start();
   }
 }
