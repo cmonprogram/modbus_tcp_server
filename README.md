@@ -13,7 +13,8 @@ int main()
 ```
 Собрать и запустить
 ```
-cmake . && cmake --build .
+cmake . -DBOOST_ROOT=<path to boost folder>
+cmake --build .
 ./best_tcp_server
 ```
 Подключиться
