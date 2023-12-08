@@ -2,20 +2,11 @@
 Моя реализация многопоточного tcp-сервера на основе boost::asio
 
 ## Использование
-
-Установить порт и количество потоков
-```
-int main()
-{
-  Server server(9000, 10);
-  server.Start();
-}
-```
 Собрать и запустить
 ```
 cmake . -DBOOST_ROOT=<path to boost folder>
 cmake --build .
-./best_tcp_server
+./best_tcp_server <port> <threads num>
 ```
 Подключиться
 ```
